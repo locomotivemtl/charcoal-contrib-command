@@ -54,7 +54,7 @@ Just add the following module in your json configuration file:
 Script `command/process-queue` is added with the command's module.
 
 ```cli
-* * * * * export APPLICATION_ENV=lab && /usr/local/bin/php /home/lab/www/alerts/otterburn-park/v4/vendor/bin/charcoal messaging/sms/process-queue > /dev/null 2>&1
+* * * * * /path/to/bin/php /path/to/vendor/bin/charcoal command/process-queue > /dev/null 2>&1
 ```
 
 
