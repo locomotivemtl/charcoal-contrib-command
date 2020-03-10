@@ -9,6 +9,8 @@ use Psr\Http\Message\ResponseInterface;
 
 class CommandModule extends AbstractModule
 {
+    const APP_CONFIG = 'vendor/locomotivemtl/charcoal-contrib-command/config/config.json';
+
     /**
      * Setup the module's dependencies.
      *
