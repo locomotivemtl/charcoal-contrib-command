@@ -1,0 +1,66 @@
+{
+    "sources": {
+        "default": {
+            "table": "charcoal_default_logs"
+        }
+    },
+    "default_source": "default",
+    "labels": {
+        "name": "Événement",
+        "singular_name": "Événement",
+        "edit_item": "Modifier l'événement",
+        "create_item": "Créer un événement",
+        "new_item": "Nouvel événement",
+        "all_items": "Tous les événements",
+        "menu_items": "Journal d'événements"
+    },
+    "properties": {
+        "id": {
+            "type": "id",
+            "mode": "uuid"
+        },
+        "channel": {
+            "type": "string",
+            "label": "Channel"
+        },
+        "level": {
+            "type": "string",
+            "label": {
+                "fr": "Niveau",
+                "en": "Level"
+            }
+        },
+        "levelName": {
+            "type": "string",
+            "label": {
+                "fr": "Nom du niveau",
+                "en": "Level name"
+            }
+        },
+        "success": {
+            "type": "boolean",
+            "label": {
+                "fr": "Succès de la commande",
+                "en": "Command's success"
+            }
+        },
+        "datetime": {
+            "type": "date-time",
+            "label": {
+                "fr": "Date de fin de procédure de la commande",
+                "en": "Processed date"
+            }
+        },
+        "context": {
+            "type": "structure",
+            "label": {
+                "fr": "Contexte",
+                "en": "Context"
+            }
+        },
+        "extra": {
+            "type": "structure",
+            "label": "Extra"
+        }
+    }
+}

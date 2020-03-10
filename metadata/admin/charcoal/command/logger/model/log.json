@@ -1,0 +1,103 @@
+{
+    "admin": {
+        "export": {
+            "default": {
+                "properties": [
+                    "id",
+                    "ts",
+                    "command",
+                    "arguments",
+                    "success",
+                    "results"
+                ],
+                "orders": [
+                    {
+                        "property": "ts",
+                        "mode": "desc"
+                    }
+                ],
+                "exporter_options": {
+                    "convert_br_to_newlines": true,
+                    "strip_tags": true,
+                    "filename": "command-logs.csv"
+                }
+            }
+        },
+        "default_export": "default",
+        "lists": {
+            "default": {
+                "properties": [
+                    "ts",
+                    "command",
+                    "arguments",
+                    "success"
+                ],
+                "orders": [
+                    {
+                        "property": "issuedDate",
+                        "mode": "desc"
+                    }
+                ]
+            }
+        },
+        "default_list": "default",
+        "forms": {
+            "default": {
+                "groups": {
+                    "main": {
+                    }
+                },
+                "sidebars": {
+                    "default": {
+                        "properties": [
+                            "ts",
+                            "success"
+                        ]
+                    }
+                }
+            }
+        },
+        "default_form": "default",
+        "form_groups": {
+            "main": {
+                "layout": {
+                    "structure": [
+                        {
+                            "columns": [1]
+                        },
+                        {
+                            "columns": [1, 1]
+                        }
+                    ]
+                },
+                "properties": [
+                    "command",
+                    "arguments",
+                    "results"
+                ]
+            }
+        },
+        "dashboards": {
+            "admin.edit": {
+                "widgets": {
+                    "form": {
+                        "type": "charcoal/admin/widget/object-form",
+                        "form_ident": "default"
+                    }
+                }
+            },
+            "admin.table": {
+                "widgets": {
+                    "table": {
+                        "type": "charcoal/admin/widget/table",
+                        "collection_ident": "default",
+                        "data_sources": ["request"]
+                    }
+                }
+            }
+        },
+        "default_create_dashboard": "admin.edit",
+        "default_edit_dashboard": "admin.edit",
+        "default_collection_dashboard": "admin.table"
+    }
+}

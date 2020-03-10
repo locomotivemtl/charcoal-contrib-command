@@ -1,0 +1,67 @@
+{
+    "defaultData": {
+        "active": true,
+        "processed": 0
+    },
+    "sources": {
+        "default": {
+            "table": "charcoal_command_queues"
+        }
+    },
+    "default_source": "default",
+    "labels": {
+        "name": "Commande",
+        "singular_name": "Commande",
+        "edit_item": "Modifier la commande",
+        "create_item": "Créer une commande",
+        "new_item": "Nouvelle commande",
+        "all_items": "Toutes les commandes",
+        "menu_items": "Commandes"
+    },
+    "properties": {
+        "id": {
+            "type": "id"
+        },
+        "command": {
+            "type": "string",
+            "label": {
+                "fr": "Commande",
+                "en": "Command"
+            }
+        },
+        "arguments": {
+            "readonly": true,
+            "type": "structure",
+            "label": "Arguments"
+        },
+        "issuedDate": {
+            "type": "date-time",
+            "label": {
+                "fr": "Date d'émission de la commande",
+                "en": "Date issued"
+            }
+        },
+        "processed": {
+            "allow_null": false,
+            "type": "boolean",
+            "label": {
+                "fr": "La commande a-t-elle été exécutée?",
+                "en": "Command processed"
+            }
+        },
+        "processedDate": {
+            "type": "date-time",
+            "label": {
+                "fr": "Date de fin de procédure de la commande",
+                "en": "Processed date"
+            }
+        },
+        "processingDate": {
+            "type": "date-time",
+            "label": {
+                "fr": "Date d'exécution de la commande",
+                "en": "Processing date"
+            }
+        }
+    }
+}

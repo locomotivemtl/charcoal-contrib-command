@@ -1,0 +1,56 @@
+{
+    "sources": {
+        "default": {
+            "table": "charcoal_command_logs"
+        }
+    },
+    "default_source": "default",
+    "labels": {
+        "name": "Événement",
+        "singular_name": "Événement",
+        "edit_item": "Modifier l'événement",
+        "create_item": "Créer un événement",
+        "new_item": "Nouvel événement",
+        "all_items": "Tous les événements",
+        "menu_items": "Journal d'événements"
+    },
+    "properties": {
+        "id": {
+            "type": "id",
+            "mode": "uuid"
+        },
+        "command": {
+            "type": "string",
+            "label": {
+                "fr": "Commande",
+                "en": "Command"
+            }
+        },
+        "arguments": {
+            "readonly": true,
+            "type": "structure",
+            "label": "Arguments"
+        },
+        "success": {
+            "type": "boolean",
+            "label": {
+                "fr": "Succès de la commande",
+                "en": "Command's success"
+            }
+        },
+        "ts": {
+            "type": "date-time",
+            "label": {
+                "fr": "Date de fin de procédure de la commande",
+                "en": "Processed date"
+            }
+        },
+        "results": {
+            "type": "structure",
+            "label": {
+                "fr": "Résultats / Données supplémentaires",
+                "en": "Results / Extra data"
+            }
+        }
+    }
+}
