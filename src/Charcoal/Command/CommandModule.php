@@ -23,9 +23,6 @@ class CommandModule extends AbstractModule
         $commandServiceProvider = new CommandServiceProvider();
         $container->register($commandServiceProvider);
 
-        $helpConfig = $container['admin/guide/config'];
-        $this->setConfig($helpConfig);
-
         $routeIdent = 'charcoal/command/script/process-queue';
         $methods = ['GET'];
         $routePattern = '/command/process-queue';
