@@ -22,7 +22,7 @@
     },
     "require": {
         "php": ">7.1",
-        "monolog/monolog": "~1.24.0",
+        "monolog/monolog": ">=1.24.0",
         "locomotivemtl/charcoal-core": "~0.4"
     },
     "require-dev": {
