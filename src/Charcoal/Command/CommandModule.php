@@ -23,49 +23,57 @@ class CommandModule extends AbstractModule
         $commandServiceProvider = new CommandServiceProvider();
         $container->register($commandServiceProvider);
 
-        $routeIdent = 'charcoal/command/script/process-queue';
-        $methods = ['GET'];
-        $routePattern = '/command/process-queue';
 
-        $scriptConfig = [
-            'ident' => $routeIdent,
-            'methods' => $methods,
-            'script_data' => []
+        $scriptConfigs = [
+            [
+                'ident'       => 'charcoal/command/script/process-queue',
+                'methods'     => ['GET'],
+                'script_data' => [],
+                'pattern'     => '/command/process-queue'
+            ],
+            [
+                'ident'       => 'charcoal/command/script/run-command',
+                'methods'     => ['GET'],
+                'script_data' => [],
+                'pattern'     => '/command/run'
+            ]
         ];
 
-        $this->app()->map(
-            $methods,
-            $routePattern,
-            function (
-                RequestInterface $request,
-                ResponseInterface $response,
-                array $args = []
-            ) use (
-                $routeIdent,
-                $scriptConfig
-            ) {
-                if (count($args)) {
-                    $scriptConfig['script_data'] = array_merge(
-                        $scriptConfig['script_data'],
-                        $args
-                    );
+        foreach ($scriptConfigs as $scriptConfig) {
+            $this->app()->map(
+                $scriptConfig['methods'],
+                $scriptConfig['pattern'],
+                function (
+                    RequestInterface $request,
+                    ResponseInterface $response,
+                    array $args = []
+                ) use (
+                    $scriptConfig
+                ) {
+                    if (count($args)) {
+                        $scriptConfig['script_data'] = array_merge(
+                            $scriptConfig['script_data'],
+                            $args
+                        );
+                    }
+
+                    $defaultController = $this['route/controller/script/class'];
+                    $routeController   = isset($scriptConfig['route_controller'])
+                        ? $scriptConfig['route_controller']
+                        : $defaultController;
+
+                    $routeFactory = $this['route/factory'];
+                    $routeFactory->setDefaultClass($defaultController);
+
+                    $route = $routeFactory->create($routeController, [
+                        'config' => $scriptConfig,
+                        'logger' => $this['logger']
+                    ]);
+                    return $route($this, $request, $response);
                 }
+            );
+        }
 
-                $defaultController = $this['route/controller/script/class'];
-                $routeController   = isset($scriptConfig['route_controller'])
-                    ? $scriptConfig['route_controller']
-                    : $defaultController;
-
-                $routeFactory = $this['route/factory'];
-                $routeFactory->setDefaultClass($defaultController);
-
-                $route = $routeFactory->create($routeController, [
-                    'config' => $scriptConfig,
-                    'logger' => $this['logger']
-                ]);
-                return $route($this, $request, $response);
-            }
-        );
 
         return $this;
     }
