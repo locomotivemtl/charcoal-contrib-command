@@ -3,5 +3,9 @@
         "paths": [
             "vendor/locomotivemtl/charcoal-contrib-command/metadata/"
         ]
+    },
+    "view": {
+        "paths": [
+        ]
     }
 }
