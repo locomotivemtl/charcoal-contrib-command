@@ -105,7 +105,7 @@ abstract class AbstractCommand implements CommandInterface
     /**
      * @return array|null
      */
-    protected function getResults()
+    public function getResults()
     {
         return $this->results;
     }
@@ -123,7 +123,7 @@ abstract class AbstractCommand implements CommandInterface
     /**
      * @return bool
      */
-    protected function getSuccess()
+    public function getSuccess()
     {
         return $this->success;
     }

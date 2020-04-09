@@ -2,15 +2,18 @@
 
 namespace Charcoal\Command\Logger\Handler;
 
+use Charcoal\Model\ModelFactoryTrait;
 use Charcoal\Model\ModelInterface;
 use Monolog\Handler\AbstractProcessingHandler;
 
 class CharcoalHandler extends AbstractProcessingHandler
 {
+    use ModelFactoryTrait;
+
     /**
      * @var ModelInterface|null
      */
-    protected $loggerProto;
+    protected $loggerProtoClass;
 
     /**
      * CharcoalHandler constructor.
@@ -31,8 +34,8 @@ class CharcoalHandler extends AbstractProcessingHandler
         $class     = isset($opts['model']) ? $opts['model'] : $config['model'];
         $container = $data['container'];
 
-        $proto = $container['model/factory']->create($class);
-        $this->setLoggerProto($proto);
+        $this->setModelFactory($container['model/factory']);
+        $this->setLoggerProtoClass($class);
 
         $format = $opts['formatter'];
 
@@ -47,18 +50,18 @@ class CharcoalHandler extends AbstractProcessingHandler
     /**
      * @return ModelInterface|null
      */
-    public function loggerProto()
+    public function loggerProtoClass()
     {
-        return $this->loggerProto;
+        return $this->loggerProtoClass;
     }
 
     /**
-     * @param ModelInterface|null $loggerProto
+     * @param string|null $loggerProto
      * @return CharcoalHandler
      */
-    public function setLoggerProto(?ModelInterface $loggerProto)
+    public function setLoggerProtoClass($loggerProtoClass)
     {
-        $this->loggerProto = $loggerProto;
+        $this->loggerProtoClass = $loggerProtoClass;
         return $this;
     }
 
@@ -68,10 +71,11 @@ class CharcoalHandler extends AbstractProcessingHandler
     public function write(array $record)
     {
         // Default formatter for monolog is the LineFormatter
+        $proto = $this->modelFactory()->create($this->loggerProtoClass());
         if (!is_array($record['formatted'])) {
-            $this->loggerProto()->setData($record)->save();
+            $proto->setData($record)->save();
         } else {
-            $this->loggerProto()->setData($record['formatted'])->save();
+            $proto->setData($record['formatted'])->save();
         }
     }
 }
