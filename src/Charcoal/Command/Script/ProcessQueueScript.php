@@ -78,8 +78,8 @@ class ProcessQueueScript extends AbstractScript
         $loader = $this->collectionLoader();
         $proto  = $this->modelFactory()->create(CommandQueue::class);
         $loader->setModel($proto)
-            ->addFilter('processed', false)
-            ->addFilter('objTable.processingDate <= NOW()')
+            ->addFilter('objTable.processed = 0')
+            ->addFilter('objTable.processing_date <= NOW()')
             ->addOrder('processingDate', 'asc');
 
         $queues = $loader->load();

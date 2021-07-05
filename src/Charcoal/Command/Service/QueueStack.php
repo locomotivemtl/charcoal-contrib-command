@@ -3,6 +3,7 @@
 namespace Charcoal\Command\Service;
 
 use Charcoal\Command\CommandQueue;
+use Charcoal\Model\ModelFactoryTrait;
 use Charcoal\Model\ModelInterface;
 use InvalidArgumentException;
 
@@ -13,10 +14,7 @@ use InvalidArgumentException;
  */
 class QueueStack
 {
-    /**
-     * @var ModelInterface
-     */
-    protected $proto;
+    use ModelFactoryTrait;
 
     /**
      * QueueStack constructor.
@@ -26,26 +24,7 @@ class QueueStack
      */
     public function __construct(array $data)
     {
-        $proto = $data['model/factory']->create(CommandQueue::class);
-        $this->setProto($proto);
-        return $this;
-    }
-
-    /**
-     * @return ModelInterface
-     */
-    protected function getProto()
-    {
-        return $this->proto;
-    }
-
-    /**
-     * @param ModelInterface $proto
-     * @return self
-     */
-    protected function setProto(ModelInterface $proto)
-    {
-        $this->proto = $proto;
+        $this->setModelFactory($data['model/factory']);
         return $this;
     }
 
@@ -71,8 +50,9 @@ class QueueStack
 
         $data = array_merge($this->defaults(), $data);
 
-        $this->getProto()->setData($data);
-        $this->getProto()->save();
+        $queue = $this->modelFactory()->create(CommandQueue::class);
+        $queue->setData($data);
+        $queue->save();
 
         return $this;
     }
